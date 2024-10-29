@@ -4,4 +4,4 @@ plotly
 matplotlib
 plotly-express
 openpyxl
-xlsxwriter
+
