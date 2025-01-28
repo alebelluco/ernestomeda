@@ -186,7 +186,7 @@ if st.toggle('visualizza impatto totale'):
         st.dataframe(cum[['anno','mese','saving','cum']], width=500)
 else:
 
-    anno_bgt = st.radio('Selezionare anno', options = [2022,2023,2024,2025])
+    anno_bgt = st.radio('Selezionare anno', options = [2021,2022,2023,2024,2025])
     df_bgt = df[df.anno <= anno_bgt].copy() # così non prende anni dopo l'anno di analisi
     df_bgt['price_ref'] = None
 
