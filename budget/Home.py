@@ -8,7 +8,15 @@ import plotly.graph_objects as go
 st.set_page_config(layout='wide')
 st.title('Analisi andamento prezzo MTS')
 st.divider()
+@st.cache_data
+def up_forn():
+    fornitori = pd.read_excel("https://github.com/alebelluco/ernestomeda/blob/main/budget/fornitori.xlsx?raw=True")
+    codici = list(fornitori['Codice'])
+    ragsoc = list(fornitori['Ragione sociale'])
+    dic_forn = dict(zip(codici, ragsoc))
+    return fornitori, dic_forn
 
+fornitori, dic_forn = up_forn()
 dic_mesi = {
     1:'Gennaio',
     2:'Febbraio',
