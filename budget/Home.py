@@ -39,6 +39,8 @@ df = upload(path1)
 
 df = df.rename(columns={'Imp. div. int.':'Importo DI'})
 
+df['ragione_sociale'] = [dic_forn[codice] for codice in df.Fornitore]
+
 #nomi_fornitori = pd.read_excel('/Users/Alessandro/Documents/AB/Clienti/ADI!/Scavolini/Budget/nomi_fornitori.xlsx')
 
 #anno = st.radio('selezionare anno', options=[2023,2024])
@@ -52,7 +54,8 @@ layout = [
     "Importo DI",
     "Data doc.",
     "importo_unitario",
-    "Fornitore"
+    "Fornitore",
+    'ragione_sociale'
     ]
 
 layout2 = [
@@ -87,6 +90,15 @@ df['saving'] = -1*df['delta_listino']*df['Quantità']
 
 
 # QUI INSERIAMO IL FILTRO SUL FORNITORE
+
+forn_select = st.multiselect('Selezionare fornitore', options = df.ragione_sociale.unique())
+
+if len(forn_select) == 0:
+    forn_select = df.ragione_sociale.unique()
+    
+df = df[[any(forn in check for forn in forn_select) for check in df.ragione_sociale]]
+
+
 #------------------------
 
 colonne=[
@@ -198,10 +210,15 @@ else:
         df_bgt['price_ref'][(df_bgt.Articolo == codice) & (df_bgt.anno == anno_bgt)] = price_ref
 
     df_bgt = df_bgt[df_bgt.anno == anno_bgt]
+    if len(df_bgt)==0:
+        st.warning('Nessuna entrata merce per i filtri selezionati')
+        st.stop()
+
+
     df_bgt['delta_bgt'] = df_bgt['importo_unitario'] - df_bgt['price_ref']
     df_bgt['saving_bgt'] = -1 * df_bgt['delta_bgt'] * df_bgt['Quantità']
 
-  
+    st.write(df_bgt)
 
     cum_bgt = df_bgt[['anno','mese','saving_bgt']].groupby(by=['anno','mese'],as_index=False).sum()
     cum_bgt['cum'] = cum_bgt['saving_bgt'].cumsum()
@@ -234,4 +251,5 @@ else:
 #dp.scarica_excel(df,'output MTS.xlsx')
 
 # Bisogna debuggare con un file entrata merce ridotto
+
 
