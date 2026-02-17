@@ -55,7 +55,7 @@ LAYOUT_EFFETTIVO = [col for col in LAYOUT if col in df.columns]
 
 # df = filtra se materiale Inizia con 311 o con 77 
 filtered_df = df[df['Materiale'].astype(str).str.startswith(('311', '77'))]
-filtered_df = df['BOCCETTA' not in text for text in df['Descrizione doc.']
+filtered_df = df['BOCCETTA' not in text for text in df['Descrizione doc.']]
 #st.dataframe(filtered_df[LAYOUT], width='content')
 
 #formatta data consegna in formato gg/mm/aaaa
