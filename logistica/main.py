@@ -7,7 +7,7 @@ st.set_page_config(page_title="DataFrame Display", layout="wide")
 sx_head, dx_head = st.columns([8, 1])
 
 
-dx_head.image('logoEM.png?raw=True', width=300)
+dx_head.image('https://github.com/alebelluco/ernestomeda/blob/main/logistica/logoEM.png', width=300)
 sx_head.title('ODA con vendita materiale')
 
 st.divider()
