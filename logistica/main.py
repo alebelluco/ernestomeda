@@ -15,6 +15,8 @@ st.divider()
 LAYOUT = [
     'Materiale',
     'Descrizione doc.',
+    'Numero',
+    'Posizione',
     'UM',
     'Quantità',
     'Data consegna',
